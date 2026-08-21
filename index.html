@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>寵佑宮 — 網站維修中</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Full background image */
+    .bg-layer {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663250077284/dhRRgJJpfvfK8eTKPvy7G7/15-ui_bg_28292acd.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    /* Semi-transparent overlay for readability */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(245, 230, 211, 0.55);
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 20px;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    /* 寵佑宮 title characters */
+    .title-chars {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .title-chars img {
+      width: 100px;
+      height: auto;
+      filter: drop-shadow(0 2px 8px rgba(139,26,26,0.2));
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .title-chars img:nth-child(2) { animation-delay: 0.3s; }
+    .title-chars img:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* Main card */
+    .card {
+      background: linear-gradient(180deg, rgba(250,245,238,0.95) 0%, rgba(245,237,224,0.95) 100%);
+      border: 2px solid #c4a265;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(139,26,26,0.12), 0 2px 8px rgba(180,140,60,0.15), inset 0 1px 0 rgba(255,255,255,0.5);
+      overflow: hidden;
+    }
+
+    .card-top-bar, .card-bottom-bar {
+      height: 6px;
+      background: linear-gradient(90deg, #8b1a1a, #b48c3c, #c4a265, #b48c3c, #8b1a1a);
+    }
+
+    .card-content {
+      padding: 36px 28px 32px;
+    }
+
+    /* Seal icon */
+    .seal {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #b48c3c 0%, #c4a265 50%, #d4b87a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(180,140,60,0.3), inset 0 1px 2px rgba(255,255,255,0.3);
+    }
+
+    .seal span {
+      font-size: 36px;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    /* Wrench icon animation */
+    .wrench-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      animation: wrench-spin 2.5s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    @keyframes wrench-spin {
+      0%, 100% { transform: rotate(0deg); }
+      20% { transform: rotate(-15deg); }
+      40% { transform: rotate(15deg); }
+      60% { transform: rotate(-10deg); }
+      80% { transform: rotate(5deg); }
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #4a3728;
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #8b7355;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+    }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .divider-line {
+      flex: 1;
+      max-width: 80px;
+      height: 1px;
+    }
+
+    .divider-line.left { background: linear-gradient(90deg, transparent, #c4a265); }
+    .divider-line.right { background: linear-gradient(270deg, transparent, #c4a265); }
+
+    .divider-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c4a265;
+      opacity: 0.6;
+    }
+
+    .message {
+      font-size: 17px;
+      color: #6b5744;
+      line-height: 1.8;
+      margin-bottom: 8px;
+    }
+
+    .message-detail {
+      font-size: 14px;
+      color: #8b7355;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    /* LINE button */
+    .line-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #06C755 0%, #05b34d 100%);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 3px 10px rgba(6,199,85,0.3);
+      transition: all 0.2s ease;
+    }
+
+    .line-btn:hover {
+      box-shadow: 0 4px 14px rgba(6,199,85,0.4);
+      transform: translateY(-1px);
+    }
+
+    .line-btn svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(196,162,101,0.25);
+    }
+
+    .footer p {
+      font-size: 12px;
+      color: #b8a898;
+      letter-spacing: 1px;
+    }
+
+    /* Pulsing dots animation */
+    .loading-dots {
+      display: inline-flex;
+      gap: 6px;
+      margin-top: 20px;
+    }
+
+    .loading-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c4a265;
+      animation: pulse-dot 1.4s ease-in-out infinite;
+    }
+
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes pulse-dot {
+      0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+      40% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .title-chars img { width: 80px; }
+      h1 { font-size: 24px; }
+      .card-content { padding: 28px 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-layer"></div>
+  <div class="overlay"></div>
+
+  <div class="container">
+    <!-- 寵佑宮 title characters -->
+    <div class="title-chars">
+      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663250077284/dhRRgJJpfvfK8eTKPvy7G7/01-寵-大字_c8c74a91.png" alt="寵" />
+      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663250077284/dhRRgJJpfvfK8eTKPvy7G7/02-佑-大字_3bd11f44.png" alt="佑" />
+      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663250077284/dhRRgJJpfvfK8eTKPvy7G7/03-宮-大字_6f9a4944.png" alt="宮" />
+    </div>
+
+    <!-- Main card -->
+    <div class="card">
+      <div class="card-top-bar"></div>
+      <div class="card-content">
+        <div class="seal"><span>宮</span></div>
+
+        <div class="wrench-icon">🔧</div>
+
+        <h1>網站維修中</h1>
+        <p class="subtitle">系統升級維護中</p>
+
+        <div class="divider">
+          <div class="divider-line left"></div>
+          <div class="divider-dot"></div>
+          <div class="divider-line right"></div>
+        </div>
+
+        <p class="message">
+          寵佑宮正在進行系統升級維護<br/>
+          預計將盡快恢復服務
+        </p>
+        <p class="message-detail">
+          造成不便敬請見諒<br/>
+          如有緊急問題，歡迎透過 LINE 聯繫我們
+        </p>
+
+        <!-- LINE contact button -->
+        <a href="https://line.me/R/ti/p/@eak8201t" target="_blank" class="line-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          聯繫官方 LINE
+        </a>
+
+        <div class="loading-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="footer">
+          <p>寵佑宮寵物解籤網站</p>
+        </div>
+      </div>
+      <div class="card-bottom-bar"></div>
+    </div>
+  </div>
+</body>
+</html>
